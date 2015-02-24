@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * @author thipau
  */
-public class InventoryItemCreated implements Event
+public class InventoryItemCreated extends Event
 {
     public UUID id;
     public String name;

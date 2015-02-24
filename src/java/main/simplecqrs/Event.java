@@ -3,6 +3,7 @@ package simplecqrs;
 /**
  * @author thipau
  */
-public interface Event
+public class Event implements Message
 {
+    public int version;
 }
