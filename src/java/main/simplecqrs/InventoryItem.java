@@ -11,6 +11,10 @@ public class InventoryItem extends AggregateRoot
     private String name;
     private boolean activated;
 
+    public InventoryItem() {
+        // used to create in repository ... many ways to avoid this, eg making private constructor
+    }
+
     public InventoryItem(UUID id, String name)
     {
         if (id == null) {
@@ -20,6 +24,16 @@ public class InventoryItem extends AggregateRoot
             throw new IllegalArgumentException("name cannot be null");
         }
         applyChange(new InventoryItemCreated(id, name));
+    }
+
+    @Override
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     @Override
