@@ -18,18 +18,18 @@ public class EventBasedRepository<T extends AggregateRoot> implements Repository
     }
 
     @Override
-    public void save(T aggregate, int expectedVersion)
-    {
-        storage.saveEvents(aggregate.getId(), aggregate.getUncommittedChanges(), expectedVersion);
-    }
-
-    @Override
     public T getById(UUID id)
     {
         T result = factory.newInstance();
         List<Event> events = storage.getEventsForAggregate(id);
         result.loadFromHistory(events);
         return result;
+    }
+
+    @Override
+    public void save(T aggregate, int expectedVersion)
+    {
+        storage.saveEvents(aggregate.getId(), aggregate.getUncommittedChanges(), expectedVersion);
     }
 
 }
