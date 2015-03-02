@@ -58,7 +58,7 @@ public class InMemoryEventStore implements EventStore
             store.put(aggregateId, new EventDescriptor(aggregateId, event, i));
 
             // publish current event to the bus for further processing by subscribers
-            //_publisher.Publish(@event);
+            //publisher.publish(event);
         }
     }
 
