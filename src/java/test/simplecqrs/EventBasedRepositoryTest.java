@@ -5,15 +5,12 @@ import java.util.List;
 import java.util.UUID;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
 public class EventBasedRepositoryTest
 {
     private final EventStore eventStore = mock(EventStore.class);
