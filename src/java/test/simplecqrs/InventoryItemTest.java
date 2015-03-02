@@ -30,14 +30,14 @@ public class InventoryItemTest
     }
 
     @Test
-    public void changeName()
+    public void rename()
     {
         final UUID aggregateId = AggregateIds.anAggregateId();
         final String name = "anInventoryItem";
         final InventoryItem item = new InventoryItem();
         item.loadFromHistory(Arrays.asList(new InventoryItemCreated(aggregateId, name)));
         String newName = "changedInventoryItem";
-        item.changeName(newName);
+        item.rename(newName);
 
         final List<Event> events = item.getUncommittedChanges();
         assertThat(events, hasItem(new InventoryItemRenamed(aggregateId, newName)));

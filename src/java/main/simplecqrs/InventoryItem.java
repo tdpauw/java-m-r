@@ -67,7 +67,7 @@ public class InventoryItem extends AggregateRoot
         name = e.newName;
     }
 
-    public void changeName(String newName)
+    public void rename(String newName)
     {
         if (Strings.isNullOrEmpty(newName))  throw new IllegalArgumentException("newName must be provided");
         applyChange(new InventoryItemRenamed(id, newName));
