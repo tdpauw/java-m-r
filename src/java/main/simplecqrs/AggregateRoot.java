@@ -11,7 +11,8 @@ public abstract class AggregateRoot
 {
 
     /**
-     * used for instantiating Generic types in the DefaultRepository
+     * This classed is used for instantiating Generic types of the DefaultRepository.
+     * @see <a href="http://stackoverflow.com/questions/1090458/instantiating-a-generic-class-in-java">http://stackoverflow.com/questions/1090458/instantiating-a-generic-class-in-java</a>
      */
     public static class Factory<T>
     {
