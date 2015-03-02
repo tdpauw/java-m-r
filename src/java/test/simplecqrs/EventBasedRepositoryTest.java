@@ -19,27 +19,28 @@ public class EventBasedRepositoryTest
     private final EventStore eventStore = mock(EventStore.class);
     private final Repository<InventoryItem> sut = new EventBasedRepository<>(eventStore, new AggregateRoot.Factory<>(InventoryItem.class));
 
-    private final UUID aggregateId = UUID.fromString("f9a0d992-4106-4fe0-87e0-18b31bd6777a");
+    private final UUID aggregateId = AggregateIds.anAggregateId();
     private String inventoryItemName = "anInventoryItem";
 
     @Test
     public void getById() throws Exception
     {
-        when(eventStore.getEventsForAggregate(aggregateId)).thenReturn(Arrays.asList(new InventoryItemCreated(aggregateId, inventoryItemName)));
+        final InventoryItemCreated inventoryItemCreated = new InventoryItemCreated(aggregateId, inventoryItemName);
+        when(eventStore.getEventsForAggregate(aggregateId)).thenReturn(Arrays.asList(inventoryItemCreated));
 
-        InventoryItem actual = sut.getById(aggregateId);
+        final InventoryItem actual = sut.getById(aggregateId);
         assertThat(actual.getId(), is(equalTo(aggregateId)));
-        assertThat(actual.getName(), is(equalTo("anInventoryItem")));
+        assertThat(actual.getName(), is(equalTo(inventoryItemName)));
     }
 
     @Test
     public void save() throws Exception
     {
-        int expectedVersion = 1;
-        InventoryItem inventoryItem = new InventoryItem(aggregateId, inventoryItemName);
+        final int expectedVersion = 1;
+        final InventoryItem inventoryItem = new InventoryItem(aggregateId, inventoryItemName);
         sut.save(inventoryItem, expectedVersion);
 
-        List<Event> expectedEvents = Arrays.asList(new InventoryItemCreated(aggregateId, inventoryItemName));
+        final List<Event> expectedEvents = Arrays.asList(new InventoryItemCreated(aggregateId, inventoryItemName));
         verify(eventStore).saveEvents(aggregateId, expectedEvents, expectedVersion);
     }
 }

@@ -20,11 +20,12 @@ public class InventoryItemTest
     @Test
     public void create()
     {
-        UUID id = UUID.randomUUID();
-        InventoryItem item = new InventoryItem(id, "anInventoryItem");
+        final UUID aggregateId = AggregateIds.anAggregateId();
+        final String inventoryItemName = "anInventoryItem";
+        final InventoryItem item = new InventoryItem(aggregateId, inventoryItemName);
 
-        List<Event> events = item.getUncommittedChanges();
-        assertThat(events, hasItem(new InventoryItemCreated(id, "anInventoryItem")));
+        final List<Event> events = item.getUncommittedChanges();
+        assertThat(events, hasItem(new InventoryItemCreated(aggregateId, inventoryItemName)));
     }
 
 }
