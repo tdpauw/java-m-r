@@ -69,7 +69,7 @@ public class InventoryItem extends AggregateRoot
 
     public void rename(String newName)
     {
-        if (Strings.isNullOrEmpty(newName))  throw new IllegalArgumentException("newName must be provided");
+        if (Strings.isNullOrEmpty(newName) || newName.trim().isEmpty())  throw new IllegalArgumentException("newName must be provided");
         applyChange(new InventoryItemRenamed(id, newName));
     }
 }
