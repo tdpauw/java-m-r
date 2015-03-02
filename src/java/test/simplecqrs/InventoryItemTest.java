@@ -6,7 +6,9 @@ import java.util.UUID;
 
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class InventoryItemTest
@@ -33,6 +35,7 @@ public class InventoryItemTest
 
         final List<Event> events = sut.getUncommittedChanges();
         assertThat(events, hasItem(new InventoryItemRenamed(aggregateId, newName)));
+        assertThat(sut.getName(), is(equalTo(newName)));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -61,5 +64,29 @@ public class InventoryItemTest
         sut.loadFromHistory(Arrays.asList(new InventoryItemCreated(aggregateId, name)));
 
         sut.rename("   ");
+    }
+
+    @Test
+    public void deactivate()
+    {
+        final InventoryItem sut = new InventoryItem();
+        sut.loadFromHistory(Arrays.asList(new InventoryItemCreated(aggregateId, name)));
+
+        sut.deactivate();
+
+        final List<Event> events = sut.getUncommittedChanges();
+        assertThat(events, hasItem(new InventoryItemDeactivated(aggregateId)));
+        assertThat(sut.isActivated(), is(false));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void deactivateAnInactiveItem()
+    {
+        final InventoryItem sut = new InventoryItem();
+        InventoryItemCreated inventoryItemCreated = new InventoryItemCreated(aggregateId, name);
+        InventoryItemDeactivated inventoryItemDeactivated = new InventoryItemDeactivated(aggregateId);
+        sut.loadFromHistory(Arrays.asList(inventoryItemCreated, inventoryItemDeactivated));
+
+        sut.deactivate();
     }
 }

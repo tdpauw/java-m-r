@@ -40,6 +40,23 @@ public class InventoryItem extends AggregateRoot
         return name;
     }
 
+    public boolean isActivated()
+    {
+        return activated;
+    }
+
+    public void rename(String newName)
+    {
+        if (Strings.isNullOrEmpty(newName) || newName.trim().isEmpty())  throw new IllegalArgumentException("A new name must be provided");
+        applyChange(new InventoryItemRenamed(id, newName));
+    }
+
+    public void deactivate()
+    {
+        if(!activated) throw new IllegalStateException("The item already deactivated");
+        applyChange(new InventoryItemDeactivated(id));
+    }
+
     @Override
     protected void apply(Event e)
     {
@@ -50,6 +67,10 @@ public class InventoryItem extends AggregateRoot
         else if(e instanceof InventoryItemRenamed)
         {
             apply((InventoryItemRenamed) e);
+        }
+        else if(e instanceof InventoryItemDeactivated)
+        {
+            apply((InventoryItemDeactivated) e);
         }
         else
             throw new UnsupportedOperationException(e + " is not supported " + this);
@@ -67,9 +88,8 @@ public class InventoryItem extends AggregateRoot
         name = e.newName;
     }
 
-    public void rename(String newName)
+    private void apply(InventoryItemDeactivated e)
     {
-        if (Strings.isNullOrEmpty(newName) || newName.trim().isEmpty())  throw new IllegalArgumentException("newName must be provided");
-        applyChange(new InventoryItemRenamed(id, newName));
+        activated = false;
     }
 }
