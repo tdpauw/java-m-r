@@ -6,12 +6,12 @@ import java.util.UUID;
 /**
  * @author thipau
  */
-public class DefaultRepository<T extends AggregateRoot> implements Repository<T>
+public class EventBasedRepository<T extends AggregateRoot> implements Repository<T>
 {
     private final EventStore storage;
     private final AggregateRoot.Factory<T> factory;
 
-    public DefaultRepository(EventStore storage, AggregateRoot.Factory<T> factory)
+    public EventBasedRepository(EventStore storage, AggregateRoot.Factory<T> factory)
     {
         this.storage = storage;
         this.factory = factory;

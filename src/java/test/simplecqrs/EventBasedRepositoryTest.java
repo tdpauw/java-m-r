@@ -14,10 +14,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DefaultRepositoryTest
+public class EventBasedRepositoryTest
 {
     private final EventStore eventStore = mock(EventStore.class);
-    private final Repository<InventoryItem> sut = new DefaultRepository<>(eventStore, new AggregateRoot.Factory<>(InventoryItem.class));
+    private final Repository<InventoryItem> sut = new EventBasedRepository<>(eventStore, new AggregateRoot.Factory<>(InventoryItem.class));
 
     @Test
     public void getById() throws Exception
@@ -28,5 +28,11 @@ public class DefaultRepositoryTest
         InventoryItem inventoryItem = sut.getById(aggregateId);
         assertThat(inventoryItem.getId(), is(equalTo(aggregateId)));
         assertThat(inventoryItem.getName(), is(equalTo("anInventoryItem")));
+    }
+
+    @Test
+    public void save() throws Exception
+    {
+
     }
 }
