@@ -1,5 +1,6 @@
 package simplecqrs;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,11 +22,26 @@ public class InventoryItemTest
     public void create()
     {
         final UUID aggregateId = AggregateIds.anAggregateId();
-        final String inventoryItemName = "anInventoryItem";
-        final InventoryItem item = new InventoryItem(aggregateId, inventoryItemName);
+        final String name = "anInventoryItem";
+        final InventoryItem item = new InventoryItem(aggregateId, name);
 
         final List<Event> events = item.getUncommittedChanges();
-        assertThat(events, hasItem(new InventoryItemCreated(aggregateId, inventoryItemName)));
+        assertThat(events, hasItem(new InventoryItemCreated(aggregateId, name)));
     }
+
+    @Test
+    public void changeName()
+    {
+        final UUID aggregateId = AggregateIds.anAggregateId();
+        final String name = "anInventoryItem";
+        final InventoryItem item = new InventoryItem();
+        item.loadFromHistory(Arrays.asList(new InventoryItemCreated(aggregateId, name)));
+        String newName = "changedInventoryItem";
+        item.changeName(newName);
+
+        final List<Event> events = item.getUncommittedChanges();
+        assertThat(events, hasItem(new InventoryItemRenamed(aggregateId, newName)));
+    }
+
 
 }

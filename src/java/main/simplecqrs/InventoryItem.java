@@ -2,6 +2,8 @@ package simplecqrs;
 
 import java.util.UUID;
 
+import com.google.common.base.Strings;
+
 /**
  * @author thipau
  */
@@ -26,6 +28,8 @@ public class InventoryItem extends AggregateRoot
         applyChange(new InventoryItemCreated(id, name));
     }
 
+
+
     @Override
     public UUID getId() {
         return id;
@@ -39,8 +43,13 @@ public class InventoryItem extends AggregateRoot
     @Override
     protected void apply(Event e)
     {
-        if (e instanceof InventoryItemCreated) {
+        if (e instanceof InventoryItemCreated)
+        {
             apply((InventoryItemCreated) e);
+        }
+        else if(e instanceof InventoryItemRenamed)
+        {
+            apply((InventoryItemRenamed) e);
         }
         else
             throw new UnsupportedOperationException(e + " is not supported " + this);
@@ -51,5 +60,16 @@ public class InventoryItem extends AggregateRoot
         id = e.id;
         name = e.name;
         activated = true;
+    }
+
+    private void apply(InventoryItemRenamed e)
+    {
+        name = e.newName;
+    }
+
+    public void changeName(String newName)
+    {
+        if (Strings.isNullOrEmpty(newName))  throw new IllegalArgumentException("newName must be provided");
+        applyChange(new InventoryItemRenamed(id, newName));
     }
 }
