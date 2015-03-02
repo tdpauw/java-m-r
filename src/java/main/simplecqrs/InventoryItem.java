@@ -92,4 +92,28 @@ public class InventoryItem extends AggregateRoot
     {
         activated = false;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        InventoryItem that = (InventoryItem) o;
+
+        if (activated != that.activated) return false;
+        if (!id.equals(that.id)) return false;
+        if (!name.equals(that.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (activated ? 1 : 0);
+        return result;
+    }
 }
