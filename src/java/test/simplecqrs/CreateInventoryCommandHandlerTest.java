@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class CreateInventoryCommandHandlerTest
 {
@@ -23,6 +24,9 @@ public class CreateInventoryCommandHandlerTest
     @Test
     public void handle() throws Exception
     {
+        final CreateInventoryItem anInventoryItem = new CreateInventoryItem(AggregateIds.anAggregateId(), "anInventoryItem");
+        sut.handle(anInventoryItem);
 
+        verify(repository).save(new InventoryItem(AggregateIds.anAggregateId(), "anInventoryItem"), -1);
     }
 }
