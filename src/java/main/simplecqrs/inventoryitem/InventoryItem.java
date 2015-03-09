@@ -1,8 +1,10 @@
-package simplecqrs;
+package simplecqrs.inventoryitem;
 
 import java.util.UUID;
 
 import com.google.common.base.Strings;
+import simplecqrs.AggregateRoot;
+import simplecqrs.Event;
 
 /**
  * @author thipau

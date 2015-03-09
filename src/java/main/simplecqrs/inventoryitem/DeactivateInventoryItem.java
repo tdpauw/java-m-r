@@ -1,6 +1,8 @@
-package simplecqrs;
+package simplecqrs.inventoryitem;
 
 import java.util.UUID;
+
+import simplecqrs.Command;
 
 /**
  * @author thipau

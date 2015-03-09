@@ -1,10 +1,16 @@
-package simplecqrs;
+package simplecqrs.inventoryitem;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 import org.junit.Test;
+import simplecqrs.AggregateIds;
+import simplecqrs.Event;
+import simplecqrs.inventoryitem.InventoryItem;
+import simplecqrs.inventoryitem.InventoryItemCreated;
+import simplecqrs.inventoryitem.InventoryItemDeactivated;
+import simplecqrs.inventoryitem.InventoryItemRenamed;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.junit.Test;
+import simplecqrs.inventoryitem.InventoryItem;
+import simplecqrs.inventoryitem.InventoryItemCreated;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;

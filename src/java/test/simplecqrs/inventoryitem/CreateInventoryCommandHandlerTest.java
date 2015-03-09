@@ -1,8 +1,13 @@
-package simplecqrs;
+package simplecqrs.inventoryitem;
 
 import java.util.UUID;
 
 import org.junit.Test;
+import simplecqrs.AggregateIds;
+import simplecqrs.Repository;
+import simplecqrs.inventoryitem.CreateInventoryItem;
+import simplecqrs.inventoryitem.CreateInventoryItemCommandHandler;
+import simplecqrs.inventoryitem.InventoryItem;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;

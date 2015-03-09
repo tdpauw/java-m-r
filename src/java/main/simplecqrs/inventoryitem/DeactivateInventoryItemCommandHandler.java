@@ -1,4 +1,7 @@
-package simplecqrs;
+package simplecqrs.inventoryitem;
+
+import simplecqrs.Handler;
+import simplecqrs.Repository;
 
 /**
  * @author thipau

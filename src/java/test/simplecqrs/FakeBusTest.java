@@ -1,6 +1,8 @@
 package simplecqrs;
 
 import org.junit.Test;
+import simplecqrs.inventoryitem.CreateInventoryItem;
+import simplecqrs.inventoryitem.InventoryItemCreated;
 
 import static org.mockito.Mockito.*;
 
