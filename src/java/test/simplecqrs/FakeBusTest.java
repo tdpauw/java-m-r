@@ -2,9 +2,7 @@ package simplecqrs;
 
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class FakeBusTest
 {
@@ -51,10 +49,11 @@ public class FakeBusTest
         when(handler.getType()).thenReturn(InventoryItemCreated.class);
 
         sut.registerHandler(handler);
+        sut.registerHandler(handler);
 
         InventoryItemCreated message = new InventoryItemCreated(AggregateIds.anAggregateId(), "anInventoryItem");
         sut.publish(message);
 
-        verify(handler).handle(message);
+        verify(handler, times(2)).handle(message);
     }
 }
