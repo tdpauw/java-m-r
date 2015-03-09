@@ -20,6 +20,9 @@ public class FakeBus implements Bus
     public void send(Command command)
     {
         List<Handler> handlers = routes.get(command.getClass());
+        if (handlers.size() > 1) {
+            throw new UnsupportedOperationException("Cannot send a command to more than one handler.");
+        }
         handlers.get(0).handle(command);
     }
 
