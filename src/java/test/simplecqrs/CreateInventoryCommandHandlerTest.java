@@ -13,7 +13,7 @@ public class CreateInventoryCommandHandlerTest
 
     @SuppressWarnings("unchecked")
     private final Repository<InventoryItem> repository = mock(Repository.class);
-    private final CreateInventoryCommandHandler sut = new CreateInventoryCommandHandler(repository);
+    private final CreateInventoryItemCommandHandler sut = new CreateInventoryItemCommandHandler(repository);
 
     @Test
     public void getType() throws Exception

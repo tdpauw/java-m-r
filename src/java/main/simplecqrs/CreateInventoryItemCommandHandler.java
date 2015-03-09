@@ -3,11 +3,11 @@ package simplecqrs;
 /**
  * @author thipau
  */
-public class CreateInventoryCommandHandler implements Handler<CreateInventoryItem>
+public class CreateInventoryItemCommandHandler implements Handler<CreateInventoryItem>
 {
     private final Repository<InventoryItem> repository;
 
-    public CreateInventoryCommandHandler(Repository<InventoryItem> repository)
+    public CreateInventoryItemCommandHandler(Repository<InventoryItem> repository)
     {
         this.repository = repository;
     }
