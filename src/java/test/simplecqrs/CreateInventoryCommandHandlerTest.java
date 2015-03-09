@@ -1,5 +1,7 @@
 package simplecqrs;
 
+import java.util.UUID;
+
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -24,9 +26,12 @@ public class CreateInventoryCommandHandlerTest
     @Test
     public void handle() throws Exception
     {
-        final CreateInventoryItem anInventoryItem = new CreateInventoryItem(AggregateIds.anAggregateId(), "anInventoryItem");
+        final UUID aggregateId = AggregateIds.anAggregateId();
+        final String name = "anInventoryItem";
+        final CreateInventoryItem anInventoryItem = new CreateInventoryItem(aggregateId, name);
+
         sut.handle(anInventoryItem);
 
-        verify(repository).save(new InventoryItem(AggregateIds.anAggregateId(), "anInventoryItem"), -1);
+        verify(repository).save(new InventoryItem(aggregateId, name), -1);
     }
 }
