@@ -42,4 +42,19 @@ public class FakeBusTest
         CreateInventoryItem message = new CreateInventoryItem(AggregateIds.anAggregateId(), "anInventoryItem");
         sut.send(message);
     }
+
+    @Test
+    public void publish()
+    {
+        @SuppressWarnings("unchecked")
+        final Handler<InventoryItemCreated> handler = (Handler<InventoryItemCreated>) mock(Handler.class);
+        when(handler.getType()).thenReturn(InventoryItemCreated.class);
+
+        sut.registerHandler(handler);
+
+        InventoryItemCreated message = new InventoryItemCreated(AggregateIds.anAggregateId(), "anInventoryItem");
+        sut.publish(message);
+
+        verify(handler).handle(message);
+    }
 }
