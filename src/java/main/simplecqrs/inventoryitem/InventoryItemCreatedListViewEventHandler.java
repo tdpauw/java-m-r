@@ -6,7 +6,7 @@ import simplecqrs.Handler;
 /**
  * @author thipau
  */
-public class InventoryItemCreatedListViewEventHandler implements Handler<CreateInventoryItem>
+public class InventoryItemCreatedListViewEventHandler implements Handler<InventoryItemCreated>
 {
     private final Database<InventoryItemListDTO, InventoryItemDetailsDTO> database;
 
@@ -16,13 +16,13 @@ public class InventoryItemCreatedListViewEventHandler implements Handler<CreateI
     }
 
     @Override
-    public Class<CreateInventoryItem> getType()
+    public Class<InventoryItemCreated> getType()
     {
-        return CreateInventoryItem.class;
+        return InventoryItemCreated.class;
     }
 
     @Override
-    public void handle(CreateInventoryItem message)
+    public void handle(InventoryItemCreated message)
     {
         database.add(new InventoryItemListDTO(message.id, message.name));
     }

@@ -20,7 +20,7 @@ public class InventoryItemCreatedListViewEventHandlerTest
     {
         final UUID aggregateId = AggregateIds.anAggregateId();
         final String name = "an inventory item";
-        CreateInventoryItem createInventoryItem = new CreateInventoryItem(aggregateId, name);
+        InventoryItemCreated createInventoryItem = new InventoryItemCreated(aggregateId, name);
         sut.handle(createInventoryItem);
 
         verify(database).add(new InventoryItemListDTO(aggregateId, name));
