@@ -1,6 +1,7 @@
 package simplecqrs.inventoryitem;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import simplecqrs.Database;
@@ -24,7 +25,7 @@ public class DatabaseReadModelFacade implements ReadModelFacade
     }
 
     @Override
-    public InventoryItemDetailsDTO getInventoryItemDetails(UUID id)
+    public Optional<InventoryItemDetailsDTO> getInventoryItemDetails(UUID id)
     {
         return database.getDetails(id);
     }

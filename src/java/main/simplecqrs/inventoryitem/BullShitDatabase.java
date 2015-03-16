@@ -33,9 +33,10 @@ public class BullShitDatabase implements Database<InventoryItemListDTO, Inventor
     }
 
     @Override
-    public InventoryItemDetailsDTO getDetails(UUID id)
+    public Optional<InventoryItemDetailsDTO> getDetails(UUID id)
     {
-        return this.details.get(id);
+        InventoryItemDetailsDTO result = details.get(id);
+        return Optional.ofNullable(result);
     }
 
     @Override

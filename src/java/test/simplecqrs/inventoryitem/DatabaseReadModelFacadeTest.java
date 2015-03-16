@@ -2,14 +2,13 @@ package simplecqrs.inventoryitem;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import simplecqrs.AggregateIds;
 import simplecqrs.Database;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -35,9 +34,9 @@ public class DatabaseReadModelFacadeTest
     public void getInventoryItemDetails() throws Exception
     {
         InventoryItemDetailsDTO inventoryItemDetailsDTO = new InventoryItemDetailsDTO(AggregateIds.anAggregateId(), "an inventory item", 1, 4);
-        when(database.getDetails(AggregateIds.anAggregateId())).thenReturn(inventoryItemDetailsDTO);
+        when(database.getDetails(AggregateIds.anAggregateId())).thenReturn(Optional.of(inventoryItemDetailsDTO));
 
-        InventoryItemDetailsDTO actual = sut.getInventoryItemDetails(AggregateIds.anAggregateId());
-        assertThat(actual, is(equalTo(inventoryItemDetailsDTO)));
+        Optional<InventoryItemDetailsDTO> actual = sut.getInventoryItemDetails(AggregateIds.anAggregateId());
+        assertThat(actual, is(equalTo(Optional.of(inventoryItemDetailsDTO))));
     }
 }

@@ -46,8 +46,8 @@ public class BullShitDatabaseTest
         InventoryItemDetailsDTO item = new InventoryItemDetailsDTO(id, "an inventory item", 2, 4);
         sut.put(id, item);
 
-        InventoryItemDetailsDTO actual = sut.getDetails(id);
-        assertThat(actual, is(equalTo(item)));
+        Optional<InventoryItemDetailsDTO> actual = sut.getDetails(id);
+        assertThat(actual, is(equalTo(Optional.of(item))));
     }
 
     @Test

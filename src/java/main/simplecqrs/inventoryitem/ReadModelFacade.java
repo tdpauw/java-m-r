@@ -1,6 +1,7 @@
 package simplecqrs.inventoryitem;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -10,5 +11,5 @@ public interface ReadModelFacade
 {
     List<InventoryItemListDTO> getInventoryItems();
 
-    InventoryItemDetailsDTO getInventoryItemDetails(UUID id);
+    Optional<InventoryItemDetailsDTO> getInventoryItemDetails(UUID id);
 }
