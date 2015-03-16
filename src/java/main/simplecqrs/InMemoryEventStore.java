@@ -27,7 +27,13 @@ public class InMemoryEventStore implements EventStore
         }
     }
 
+    private final EventPublisher<Event> publisher;
     private final ListMultimap<UUID, EventDescriptor> store =  ArrayListMultimap.create();
+
+    public InMemoryEventStore(EventPublisher<Event> publisher)
+    {
+        this.publisher = publisher;
+    }
 
     @Override
     public void saveEvents(UUID aggregateId, List<Event> events, int expectedVersion)
@@ -58,7 +64,7 @@ public class InMemoryEventStore implements EventStore
             store.put(aggregateId, new EventDescriptor(aggregateId, event, i));
 
             // publish current event to the bus for further processing by subscribers
-            //publisher.publish(event);
+            publisher.publish(event);
         }
     }
 
