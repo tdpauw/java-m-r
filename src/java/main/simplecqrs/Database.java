@@ -12,4 +12,5 @@ public interface Database<T, S>
 
     S get(UUID id);
 
+    void add(T listDTO);
 }
