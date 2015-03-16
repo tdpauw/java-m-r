@@ -9,27 +9,38 @@ import simplecqrs.Database;
  */
 public class BullShitDatabase implements Database<InventoryItemListDTO, InventoryItemDetailsDTO>
 {
-    private static class FieldHolder
-    {
-        static final List<InventoryItemListDTO> list = new ArrayList<>();
-        static final Map<UUID, InventoryItemDetailsDTO> details = new HashMap<>();
-    }
+
+    private final List<InventoryItemListDTO> list = new ArrayList<>();
+    private final Map<UUID, InventoryItemDetailsDTO> details = new HashMap<>();
+
 
     @Override
     public List<InventoryItemListDTO> get()
     {
-        return Collections.unmodifiableList(FieldHolder.list);
+        return Collections.unmodifiableList(this.list);
     }
 
     @Override
-    public InventoryItemDetailsDTO get(UUID id)
+    public InventoryItemListDTO get(UUID id)
     {
-        return FieldHolder.details.get(id);
+        return this.list.stream().filter(item -> item.id == id).findFirst().get();
     }
 
     @Override
     public void add(InventoryItemListDTO listDTO)
     {
-        FieldHolder.list.add(listDTO);
+        this.list.add(listDTO);
+    }
+
+    @Override
+    public InventoryItemDetailsDTO getDetails(UUID id)
+    {
+        return this.details.get(id);
+    }
+
+    @Override
+    public void put(UUID id, InventoryItemDetailsDTO detailsDTO)
+    {
+        this.details.put(id, detailsDTO);
     }
 }
