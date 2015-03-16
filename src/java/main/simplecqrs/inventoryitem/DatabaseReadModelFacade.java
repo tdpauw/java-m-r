@@ -26,6 +26,6 @@ public class DatabaseReadModelFacade implements ReadModelFacade
     @Override
     public InventoryItemDetailsDTO getInventoryItemDetails(UUID id)
     {
-        return database.get(id);
+        return database.getDetails(id);
     }
 }

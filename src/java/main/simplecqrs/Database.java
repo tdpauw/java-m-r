@@ -10,7 +10,11 @@ public interface Database<T, S>
 {
     List<T> get();
 
-    S get(UUID id);
+    T get(UUID id);
 
     void add(T listDTO);
+
+    S getDetails(UUID id);
+
+    void put(UUID id, S detailsDTO);
 }

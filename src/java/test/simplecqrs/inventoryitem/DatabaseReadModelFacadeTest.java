@@ -35,7 +35,7 @@ public class DatabaseReadModelFacadeTest
     public void getInventoryItemDetails() throws Exception
     {
         InventoryItemDetailsDTO inventoryItemDetailsDTO = new InventoryItemDetailsDTO(AggregateIds.anAggregateId(), "an inventory item", 1, 4);
-        when(database.get(AggregateIds.anAggregateId())).thenReturn(inventoryItemDetailsDTO);
+        when(database.getDetails(AggregateIds.anAggregateId())).thenReturn(inventoryItemDetailsDTO);
 
         InventoryItemDetailsDTO actual = sut.getInventoryItemDetails(AggregateIds.anAggregateId());
         assertThat(actual, is(equalTo(inventoryItemDetailsDTO)));
