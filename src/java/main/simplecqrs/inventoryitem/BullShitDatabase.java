@@ -21,9 +21,9 @@ public class BullShitDatabase implements Database<InventoryItemListDTO, Inventor
     }
 
     @Override
-    public InventoryItemListDTO get(UUID id)
+    public Optional<InventoryItemListDTO> get(UUID id)
     {
-        return this.list.stream().filter(item -> item.id == id).findFirst().get();
+        return this.list.stream().filter(item -> item.id == id).findFirst();
     }
 
     @Override
@@ -42,5 +42,11 @@ public class BullShitDatabase implements Database<InventoryItemListDTO, Inventor
     public void put(UUID id, InventoryItemDetailsDTO detailsDTO)
     {
         this.details.put(id, detailsDTO);
+    }
+
+    @Override
+    public void remove(UUID id)
+    {
+        list.removeIf(item -> item.id == id);
     }
 }

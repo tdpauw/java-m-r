@@ -1,5 +1,7 @@
 package simplecqrs.inventoryitem;
 
+import java.util.Optional;
+
 import simplecqrs.Database;
 import simplecqrs.Handler;
 
@@ -24,7 +26,7 @@ public class InventoryItemRenamedListViewEventHandler implements Handler<Invento
     @Override
     public void handle(InventoryItemRenamed message)
     {
-        InventoryItemListDTO item = database.get(message.id);
-        item.name = message.newName;
+        Optional<InventoryItemListDTO> item = database.get(message.id);
+        item.ifPresent(theItem -> theItem.name = message.newName);
     }
 }

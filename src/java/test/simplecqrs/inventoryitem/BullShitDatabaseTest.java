@@ -1,6 +1,7 @@
 package simplecqrs.inventoryitem;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -27,18 +28,19 @@ public class BullShitDatabaseTest
     }
 
     @Test
-    public void getById() throws Exception
+    public void get() throws Exception
     {
         UUID id = AggregateIds.anAggregateId();
         InventoryItemListDTO item = new InventoryItemListDTO(id, "an inventory item");
         sut.add(item);
 
-        InventoryItemListDTO actual = sut.get(id);
-        assertThat(actual, is(equalTo(item)));
+        Optional<InventoryItemListDTO> actual = sut.get(id);
+        assertThat(actual.isPresent(), is(true));
+        assertThat(actual.get(), is(equalTo(item)));
     }
 
     @Test
-    public void getDetailsById() throws Exception
+    public void getDetails() throws Exception
     {
         UUID id = AggregateIds.anAggregateId();
         InventoryItemDetailsDTO item = new InventoryItemDetailsDTO(id, "an inventory item", 2, 4);
@@ -46,5 +48,18 @@ public class BullShitDatabaseTest
 
         InventoryItemDetailsDTO actual = sut.getDetails(id);
         assertThat(actual, is(equalTo(item)));
+    }
+
+    @Test
+    public void remove() throws Exception
+    {
+        UUID id = AggregateIds.anAggregateId();
+        InventoryItemListDTO item = new InventoryItemListDTO(id, "an inventory item");
+        sut.add(item);
+
+        sut.remove(id);
+
+        Optional<InventoryItemListDTO> actual = sut.get(id);
+        assertThat(actual.isPresent(), is(false));
     }
 }

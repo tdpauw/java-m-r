@@ -1,5 +1,6 @@
 package simplecqrs.inventoryitem;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class InventoryItemRenamedListViewEventHandlerTest
         final String newName = "new name for inventory item";
 
         InventoryItemListDTO item = new InventoryItemListDTO(aggregateId, "an inventory item");
-        when(database.get(aggregateId)).thenReturn(item);
+        when(database.get(aggregateId)).thenReturn(Optional.of(item));
 
         InventoryItemRenamed inventoryItemRenamed = new InventoryItemRenamed(aggregateId, newName);
         sut.handle(inventoryItemRenamed);
